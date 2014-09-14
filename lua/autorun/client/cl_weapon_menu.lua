@@ -66,6 +66,8 @@ if LocalPlayer():GetNWString("Wep"..i) == "nil" then
 	Icon[i]:SetMaterial("weapons/swep")
 else
 	--print(LocalPlayer():GetNWString("Wep"..i))
+	--print(TableName[i])
+	--print(TableName[1][table.KeyFromValue(TableEnt[i],LocalPlayer():GetNWString("Wep"..i))])
 	Icon[i]:SetName(TableName[i][table.KeyFromValue(TableEnt[i],LocalPlayer():GetNWString("Wep"..i))])
 	if not Material("vgui/entities/".. TableEnt[i][table.KeyFromValue(TableEnt[i],LocalPlayer():GetNWString("Wep"..i))] .. ".png"):IsError() then
 		Icon[i]:SetMaterial("vgui/entities/".. TableEnt[i][table.KeyFromValue(TableEnt[i],LocalPlayer():GetNWString("Wep"..i))]..".png") 
