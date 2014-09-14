@@ -56,7 +56,7 @@ function PlayerSpawn(ply)
 	ply:Give("weapon_physgun")
 	ply:Give("gmod_tool")
 	ply:ConCommand("gm_giveswep weapon_bur_medkit")
-	ply:ConCommand("gm_giveswep fas2_m67")
+	ply:ConCommand("gm_giveswep weapon_cs_he")
 
 	if GetConVar("bur_spawnprotection"):GetInt() == 0 or GetConVar("bur_giveweaponsafter"):GetInt() <= 0 then 
 		GiveWeapons(ply)
