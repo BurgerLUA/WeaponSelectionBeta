@@ -53,10 +53,13 @@ function PlayerSpawn(ply)
 
 	ply:StripAmmo()
 	ply:StripWeapons()
-	ply:Give("weapon_physgun")
-	ply:Give("gmod_tool")
-	ply:ConCommand("gm_giveswep weapon_bur_medkit")
-	ply:ConCommand("gm_giveswep weapon_cs_he")
+	
+	if ply:IsBot() == false then
+		ply:Give("weapon_physgun")
+		ply:Give("gmod_tool")
+		ply:ConCommand("gm_giveswep weapon_bur_medkit")
+		ply:ConCommand("gm_giveswep weapon_cs_he")
+	end
 
 	if GetConVar("bur_spawnprotection"):GetInt() == 0 or GetConVar("bur_giveweaponsafter"):GetInt() <= 0 then 
 		GiveWeapons(ply)
@@ -127,6 +130,7 @@ end
 
 function GiveWeapons(ply)
 	if ply.Wep == nil then return end
+	if ply:IsBot() then return end
 	for i=1, 5 do
 		if ply.Wep[i] ~= nil then 
 			ply:ConCommand("gm_giveswep " .. ply.Wep[i])
