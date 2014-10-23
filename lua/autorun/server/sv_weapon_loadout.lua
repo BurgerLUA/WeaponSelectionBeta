@@ -1,4 +1,4 @@
-AddCSLuaFile( "autorun/client/cl_weaponselection.lua" )
+AddCSLuaFile( "autorun/client/cl_weapon_menu.lua" )
 
 --cvar.SetFlags("convarname" , cvar2.GetFlags("convarname") - FCVAR_SERVER_CAN_EXECUTE)
 
@@ -55,10 +55,23 @@ function PlayerSpawn(ply)
 	ply:StripWeapons()
 	
 	if ply:IsBot() == false then
-		ply:Give("weapon_physgun")
-		ply:Give("gmod_tool")
-		ply:ConCommand("gm_giveswep weapon_bur_medkit")
-		ply:ConCommand("gm_giveswep weapon_cs_he")
+	
+		if ply:GetInfoNum( "cl_ws_enabletoolgun", 1 ) == 1 then
+			ply:Give("gmod_tool")
+		end
+		
+		if ply:GetInfoNum( "cl_ws_enablecamera", 1 ) == 1 then
+			ply:Give("gmod_camera")
+		end
+		
+		if ply:GetInfoNum( "cl_ws_enablephysgun", 1 ) == 1 then
+			ply:Give("weapon_physgun")
+		end
+		
+		if ply:GetInfoNum( "cl_ws_enablemedkit", 1 ) == 1 then
+			ply:ConCommand("gm_giveswep weapon_bur_medkit")
+		end
+		
 	end
 
 	if GetConVar("bur_spawnprotection"):GetInt() == 0 or GetConVar("bur_giveweaponsafter"):GetInt() <= 0 then 
@@ -129,6 +142,11 @@ end
 
 
 function GiveWeapons(ply)
+
+	if ply:GetInfoNum( "cl_ws_enablenade", 1 ) == 1 then
+		ply:ConCommand("gm_giveswep weapon_cs_he")
+	end
+
 	if ply.Wep == nil then return end
 	if ply:IsBot() then return end
 	for i=1, 5 do
@@ -136,5 +154,6 @@ function GiveWeapons(ply)
 			ply:ConCommand("gm_giveswep " .. ply.Wep[i])
 		end
 	end
+	
 end
 
